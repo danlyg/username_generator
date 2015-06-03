@@ -12,7 +12,33 @@ def generate_username2 (first, last)
 end
 
 def generate_username3 (first_name, last_name, birth_year)
-  generate_username2(first_name, last_name)
+  fLast = generate_username2(first_name, last_name)
 
+  yearLength = Math.log10(birth_year).to_i + 1
+  if yearLength == 4
+    fLast + birth_year.to_s[-2..-1]
+  end
+end
+
+
+def check_privilege (level=0)
+  privilege = "user" if level == 0
+  privilege = "seller" if level == 1
+  privilege = "manager" if level == 2
+  privilege = "admin" if level == 3
+  
+  privilege
+end
+
+def generate_username4 (first_name, last_name, birth_year, level=0)
+  username = generate_username3(first_name, last_name, birth_year)
+
+  privilege = check_privilege(level)
+
+  if level != 0 
+    privilege + "-" + username
+  else
+    username
+  end
 
 end
